@@ -20,7 +20,9 @@ const config: Config = {
       mainRed:'#EE1B24',
       lightRed: '#FFEDED',
       mainGreen: '#00A652',
-      lightGreen: '#CCEDDC',    
+      lightGreen: '#CCEDDC',
+      white: '#fff',
+      black: '#000' 
     }
   },
   plugins: [],
