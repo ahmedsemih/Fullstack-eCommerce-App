@@ -3,12 +3,19 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion } from "framer-motion";
+import { signOut, useSession } from 'next-auth/react';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { BiLogIn, BiLogOut } from 'react-icons/bi';
+import { RiAccountCircleLine } from 'react-icons/ri';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 
+import { useModalContext } from '@/contexts/ModalContext';
 import { navLinks, phoneNumbers } from '@/utils/constants';
 
 const Menu = () => {
+    const { data: session } = useSession();
+    const { setIsAuthOpen } = useModalContext();
+
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -58,6 +65,57 @@ const Menu = () => {
                                 </Link>
                             </motion.span>
                         ))}
+                        {
+                            session ?
+                            <>
+                                <motion.span
+                                    className='hover:bg-lightGreen p-2' 
+                                    variants={{
+                                        hidden: { y: 20, opacity: 0 },
+                                        visible: {
+                                            y: 0,
+                                            opacity: 1
+                                        }
+                                    }}
+                                >
+                                    <Link href='/account' className='flex items-center'>
+                                        <RiAccountCircleLine className='text-3xl mr-3' />
+                                        Account
+                                    </Link>
+                                </motion.span>
+                                <motion.span
+                                    className='hover:bg-lightGreen p-2' 
+                                    variants={{
+                                        hidden: { y: 20, opacity: 0 },
+                                        visible: {
+                                            y: 0,
+                                            opacity: 1
+                                        }
+                                    }}
+                                >
+                                    <button onClick={() => { signOut(); setIsOpen(false)}} className='flex items-center'>
+                                        <BiLogOut className='text-3xl mr-3' />
+                                        Logout
+                                    </button>
+                                </motion.span>
+                            </>
+                        :
+                            <motion.span
+                                className='hover:bg-lightGreen p-2' 
+                                variants={{
+                                    hidden: { y: 20, opacity: 0 },
+                                    visible: {
+                                        y: 0,
+                                        opacity: 1
+                                    }
+                                }}
+                            >
+                                <button onClick={() => setIsAuthOpen(true)} className='flex items-center'>
+                                    <BiLogIn className='text-3xl mr-3' />
+                                    Login
+                                </button>
+                            </motion.span>
+                        }
                     </motion.nav>
                 )
             }

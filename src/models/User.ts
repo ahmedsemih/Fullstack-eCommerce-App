@@ -7,15 +7,12 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     provider: {
         type: String,
         default: 'email'
-    },
-    password: {
-        type: String,
-        maxLength: 20
     },
     isAdmin: {
         type: Boolean,
@@ -25,9 +22,10 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now()
     },
+    password: String,
     phone: String,
     address: String
 }, { versionKey: false });
 
-const User = models.User || model('User', UserSchema);
+const User = models?.User || model('User', UserSchema);
 export default User;

@@ -9,12 +9,15 @@ export async function POST(req: NextRequest) {
         await connectToDatabase();
 
         const { password, ...body } = await req.json();
-        const hashedPassword = bcrypt.hash(password, 10);
+
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         await User.create({ password: hashedPassword, ...body });
         return NextResponse.json({ message: 'Account created successfully.' }, { status: 201 });
-        
-    } catch (error) {
-        return NextResponse.json({ message: 'Failed to create account.' }, { status: 500 });
+    } catch (error: any) {
+        if(error.code === 11000)
+        return NextResponse.json({}, { status: 500, statusText: 'This email is already in use.' });
+
+        return NextResponse.json({}, { status: 500, statusText: 'Failed to create account.' });
     }
 }

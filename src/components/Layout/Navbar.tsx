@@ -1,12 +1,20 @@
+'use client'
 import Link from "next/link";
 import Image from 'next/image';
+import { ToastContainer } from "react-toastify";
 import { BsFillTelephoneFill } from 'react-icons/bs';
+import { signOut, useSession } from "next-auth/react";
 
 import Menu from './Menu';
+import { AuthModal } from "@/components";
 import Logo from '../../../public/logo.png';
 import { phoneNumbers } from "@/utils/constants";
+import { useModalContext } from "@/contexts/ModalContext";
 
 const Navbar = () => {
+    const { data: session } = useSession();
+    const { isAuthOpen, setIsAuthOpen } = useModalContext();
+    
     return (
         <nav>
             <div className="bg-mainRed font-semibold text-center py-4 px-4 sm:px-8">
@@ -34,7 +42,9 @@ const Navbar = () => {
                     <div className="bg-mainGreen p-2 rounded-md flex gap-2 items-center px-4 text-xl text-white">
                         <BsFillTelephoneFill />  {phoneNumbers.order}
                     </div>
-                    <Link href='/login'>Login</Link>
+                    {
+                        session ? <button onClick={() => signOut()}>Account</button> : <button onClick={() => setIsAuthOpen(true)} >Login</button>
+                    }
                     <Link href='/cart'>Cart</Link>
                 </div>
             </div>
@@ -52,6 +62,9 @@ const Navbar = () => {
                 </Link>
                 <Menu />
             </div>
+
+            <ToastContainer />
+            { isAuthOpen && <AuthModal setIsOpen={setIsAuthOpen} /> }            
         </nav>
     )
 }
