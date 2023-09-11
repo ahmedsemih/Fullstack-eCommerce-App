@@ -20,7 +20,7 @@ type Category = {
 
 type Order = {
     _id: string;
-    selections: Selection[];
+    selections: SelectionType[];
     buyer: User;
     price: number;
     status: boolean;
@@ -35,14 +35,14 @@ type Product = {
     image: string;
     price: number;
     category: Category._id;
-    createdAt: Date;
+    createdAt?: Date;
     numberOfSales: number;
     ingredients?: string[];
     description?: string;
     discountRate?: number;
 }
 
-type Selection = {
+type SelectionType = {
     _id: string;
     product: Product;
     user: User._id;
