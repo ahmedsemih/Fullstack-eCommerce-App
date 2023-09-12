@@ -28,9 +28,12 @@ const ProductSchema = new Schema({
         type: Number,
         default: 0
     },
+    discountRate: {
+        type: Number,
+        default: 0
+    },
     ingredients: [String],
     description: String,
-    discountRate: Number
 }, { versionKey: false });
 
 const Product = models.Product || model('Product', ProductSchema);
