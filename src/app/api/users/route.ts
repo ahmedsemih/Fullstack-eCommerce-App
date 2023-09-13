@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
         const token = await getToken({ req })
 
         if(!token?.isAdmin)
-        return NextResponse.json({ message: 'You must be an admin to get all users.' }, { status: 401 });
+        return NextResponse.json({}, { status: 401, statusText: 'You must be an admin to get all users.' });
 
         await connectToDatabase();
 
@@ -18,8 +18,8 @@ export async function GET(req: NextRequest) {
         if(users.length > 0)
         return NextResponse.json({ users }, { status: 200 });
 
-        return NextResponse.json({ message: 'Users not found.' }, { status: 404 });
+        return NextResponse.json({}, { status: 404, statusText: 'Users not found.' });
     } catch (error) {
-        return NextResponse.json({ message: 'Failed to get users.' }, { status: 500 });
+        return NextResponse.json({}, { status: 500, statusText: 'Failed to get users.' });
     }
 }

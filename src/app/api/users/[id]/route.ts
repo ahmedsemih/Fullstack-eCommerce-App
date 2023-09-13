@@ -13,9 +13,9 @@ export async function GET(req: NextRequest, { params }: ParamsType) {
         if(user)
         return NextResponse.json({ user }, { status: 200 });
 
-        return NextResponse.json({ message: 'User not found.' }, { status: 404 });
+        return NextResponse.json({}, { status: 404, statusText: 'User not found.' });
     } catch (error) {
-        return NextResponse.json({ message: 'Failed to get user.' }, { status: 500 });
+        return NextResponse.json({}, { status: 500, statusText: 'Failed to get user.' });
     }
 }
 
@@ -24,7 +24,7 @@ export async function PUT(req: NextRequest, { params }: ParamsType) {
         const token = await getToken({ req })
 
         if(!token)
-        return NextResponse.json({ message: 'You must be logged in to update a user.' }, { status: 401 });
+        return NextResponse.json({}, { status: 401, statusText: 'You must be logged in to update a user.' });
 
         await connectToDatabase();
 
@@ -34,8 +34,8 @@ export async function PUT(req: NextRequest, { params }: ParamsType) {
         if(user)
         return NextResponse.json({ message: 'User updated successfully.' }, { status: 200 });
 
-        return NextResponse.json({ message: 'User not found.' }, { status: 404 });
+        return NextResponse.json({}, { status: 404, statusText: 'User not found.' });
     } catch (error) {
-        return NextResponse.json({ message: 'Failed to update user.' }, { status: 500 });
+        return NextResponse.json({}, { status: 500, statusText: 'Failed to update user.' });
     }
 }
