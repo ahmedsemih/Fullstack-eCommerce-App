@@ -18,3 +18,23 @@ a{
   text-decoration: none;
   color: inherit;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.greenFilter::before  {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 166, 82, 0.5);
+  pointer-events: none;
+}
