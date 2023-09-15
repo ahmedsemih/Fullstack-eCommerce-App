@@ -6,6 +6,7 @@ type ParamsType = {
 
 type Campaign = {
     _id: string;
+    name: string;
     discountRate: number;
     products: Product[];
     createdAt: Date;
@@ -39,7 +40,7 @@ type Product = {
     numberOfSales: number;
     ingredients?: string[];
     description?: string;
-    discountRate?: number;
+    discountRate: number;
 }
 
 type SelectionType = {
