@@ -35,7 +35,7 @@ type Product = {
     name: string;
     image: string;
     price: number;
-    category: Category._id;
+    category: Category;
     createdAt?: Date;
     numberOfSales: number;
     ingredients?: string[];
