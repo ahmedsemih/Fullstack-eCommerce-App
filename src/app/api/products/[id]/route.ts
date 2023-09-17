@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, { params }: ParamsType) {
     try {
         await connectToDatabase();
 
-        const product = await Product.findById(params.id);
+        const product = await Product.findById(params.id).populate('category');
 
         if(product)
         return NextResponse.json({ product }, { status: 200 });

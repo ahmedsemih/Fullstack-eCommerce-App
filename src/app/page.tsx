@@ -1,8 +1,13 @@
+import { Carousel, HeroSection, Showcase } from '@/components';
 import React from 'react'
 
 const Home = () => {
   return (
-    <div >Home</div>
+    <main>
+      <HeroSection />
+      <Carousel />
+      <Showcase />
+    </main>
   )
 }
 

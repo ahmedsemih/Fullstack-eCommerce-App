@@ -12,7 +12,7 @@ const Card = ({ product, border, category }: Props) => {
     <div 
       className={`
         h-auto rounded-lg hover:bg-lightRed cursor-pointer group flex flex-col justify-between 
-        ${border ? 'border-[3px] border-mainRed w-full' : 'border-none min-w-[100vw] sm:min-w-[50vw] md:min-w-[33vw] xl:min-w-[25vw]'}
+        ${border ? 'border-[3px] border-mainRed w-full' : 'border-none w-[100vw] sm:w-[50vw] md:w-[33vw] xl:w-[25vw]'}
       `}
     >
       <div className='px-8 py-4 xl:py-8'>
@@ -41,7 +41,17 @@ const Card = ({ product, border, category }: Props) => {
             <p className='text-6xl text-mainRed font-semibold my-8'>${product.price}</p>
           )
         }
-        <ClientButton variant='contained' productId={product._id}>Order Now</ClientButton>
+        <ClientButton 
+          variant='contained' 
+          productId={product.category.name === 'pizzas' ? product._id : null}
+          selection={{
+            _id: product._id,
+            product: product,
+            user: '',
+          }}
+        >
+          Add to Cart
+        </ClientButton>
       </div>
     </div>
   )
