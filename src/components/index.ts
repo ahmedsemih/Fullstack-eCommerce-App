@@ -6,5 +6,7 @@ export {default as Carousel} from './Carousel';
 export {default as Showcase} from './Showcase';
 export {default as AuthModal} from './modals/AuthModal';
 export {default as Loader} from './Loader';
-export {default as ClientButton} from './ClientButton';
+export {default as ClientButton} from './buttons/ClientButton';
 export {default as Countdown} from './Countdown';
+export {default as ModifyButton} from './buttons/ModifyButton';
+export {default as CampaignButton} from './buttons/CampaignButton';

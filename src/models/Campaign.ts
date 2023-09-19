@@ -12,7 +12,6 @@ const CampaignSchema = new Schema({
     products: {
         type: [Schema.Types.ObjectId],
         ref: 'Product',
-        maxItems: 3,
         minItems: 3,
         required: true
     },
