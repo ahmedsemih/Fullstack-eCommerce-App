@@ -4,7 +4,7 @@ import { BsFillPatchQuestionFill } from "react-icons/bs";
 import { ClientButton, Countdown } from "@/components";
 
 async function fetchCampaign() {
-  const res = await fetch(`${process.env.BASE_URL}/api/campaigns`, { next: { revalidate: 1800 } });
+  const res = await fetch(`${process.env.BASE_URL}/api/campaigns`, { cache: "no-cache" } );
 
   if (res.ok) {
     const data = await res.json();
@@ -19,7 +19,7 @@ const Campaigns = async () => {
 
   return (
     <section className="h-[calc(100vh-146px)] grid lg:grid-cols-3 grid-cols-1 relative w-full">
-      <div className="relative lg:absolute flex flex-col top-0 md:top-8 mx-auto right-0 left-0 w-full md:w-96 text-center bg-mainRed md:bg-mainGreen py-2 px-10 md:rounded-lg md:shadow-xl">
+      <div className="relative lg:absolute flex flex-col top-0 lg:top-8 mx-auto right-0 left-0 w-full lg:w-96 text-center bg-mainRed lg:bg-mainGreen py-2 px-10 lg:rounded-lg lg:shadow-xl">
         <h1 className="font-semibold text-3xl mb-2">{campaign ? campaign.name : 'Next Campaign'}</h1>
         <Countdown endDate={campaign?.endDate} />
       </div>
@@ -55,7 +55,7 @@ const CampaignCard = ({ product, bgColor, textColor }: Props) => {
       <h3 className={`text-${textColor} text-center text-3xl md:text-5xl font-semibold mt-4`}>
         {product.name}
       </h3>
-      <div className='my-8 flex gap-4 text-5xl md:text-7xl justify-center'>
+      <div className='my-8 flex gap-4 text-5xl xl:text-7xl justify-center'>
         <span className={`opacity-40 font-semibold line-through text-${textColor}`} >
           ${product.price}
         </span>
@@ -66,7 +66,7 @@ const CampaignCard = ({ product, bgColor, textColor }: Props) => {
       <ClientButton
         variant={bgColor !== 'white' ? 'outlined' : 'contained'}
         color={bgColor !== 'white' ? bgColor : 'mainRed'}
-        productId={product.category === '64f855b259b6627ac484f885' ? product._id : null}
+        productId={product.category.name === 'pizzas' ? product._id : null}
         selection={{
           _id: (Math.random() * 100).toString(),
           product,

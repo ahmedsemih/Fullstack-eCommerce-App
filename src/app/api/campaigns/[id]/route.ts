@@ -8,7 +8,7 @@ export async function GET(req: NextRequest, { params }: ParamsType) {
     try {
         await connectToDatabase();
 
-        const campaign = await Campaign.findById(params.id).populate('products');
+        const campaign = await Campaign.findById(params.id).populate({ path: 'products', strictPopulate: false });
 
         if(campaign)
         return NextResponse.json({ campaign }, { status: 200 });

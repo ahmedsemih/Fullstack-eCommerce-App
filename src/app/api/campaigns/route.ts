@@ -11,7 +11,16 @@ export async function GET() {
 
       let currentDate = new Date();
 
-      const campaign = await Campaign.findOne({ $or: [{ endDate: null }, { endDate: { $gt: currentDate} }]}).populate('products').sort({ createdAt: -1 });
+      const campaign = await Campaign.findOne({ 
+        $or: [{ endDate: null }, { endDate: { $gt: currentDate} }]
+      })
+      .populate({ 
+        path: 'products',
+        populate: {
+          path: 'category',
+        }
+      })
+      .sort({ createdAt: -1 });
 
       if (campaign) 
       return NextResponse.json({ campaign }, { status: 200 });

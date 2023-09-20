@@ -1,9 +1,11 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import { Loader } from '..';
 import Select from 'react-select';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+
+import { Loader } from '..';
 
 type Props = {
     setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -17,7 +19,9 @@ type CampaignInputs = {
 }
 
 const CampaignModal = ({ setIsOpen }: Props) => {
+  const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
+
   const [productOptions, setProductOptions] = useState<any[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<any>([]);
   const [campaignValues, setCampaignValues] = useState<CampaignInputs>({
@@ -84,10 +88,8 @@ const CampaignModal = ({ setIsOpen }: Props) => {
         theme: "light",
       });
     }
-
-    setIsOpen(false);
-
-    return toast.success('Campaign created successfully.',{
+    
+    toast.success('Campaign created successfully.',{
       position: "bottom-center",
       autoClose: 3000,
       hideProgressBar: false,
@@ -97,6 +99,9 @@ const CampaignModal = ({ setIsOpen }: Props) => {
       progress: undefined,
       theme: "light",
     });
+
+    setIsOpen(false);
+    return router.refresh();
   }
 
   const handleChange = <T extends keyof CampaignInputs>(prop: T, value: CampaignInputs[T]) => {
