@@ -10,10 +10,10 @@ export async function GET(req: NextRequest, { params }: ParamsType) {
         let products = [];
 
         if(params.id === 'top'){
-            products = await Product.find({}).sort({ numberOfSales : 'desc' }).limit(9).populate('category');
+            products = await Product.find({}).sort({ numberOfSales : 'desc' }).limit(9).populate({ path:'category', strictPopulate: false });
         } else {
             let category = await Category.findOne({ name: params.id });
-            products = await Product.find({ category: category._id }).populate('category');
+            products = await Product.find({ category: category._id }).populate({ path:'category', strictPopulate: false });
         }
         
         if(products.length > 0)

@@ -8,9 +8,9 @@ export async function GET() {
     try {
         await connectToDatabase();
 
-        const products = await Product.find({}).populate('category');
+        const products = await Product.find({}).populate({ path: 'Category', strictPopulate: false });
 
-        if(products.length > 0)
+        if(products.length > 0) 
         return NextResponse.json({ products }, { status: 200 });
 
         return NextResponse.json({ message: 'Products not found.' }, { status: 404 });
