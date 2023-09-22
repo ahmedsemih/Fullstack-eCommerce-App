@@ -36,8 +36,8 @@ const CartItem = ({ selection }: { selection: SelectionType }) => {
     }
 
     return (
-        <div className='flex flex-col w-full border-2 border-mainGreen bg-lightGreen rounded-lg'>
-            <div className='flex items-center relative p-4'>
+        <div className='flex flex-col w-full border-2 border-mainGreen bg-lightGreen rounded-lg min-h-[150px] justify-center relative'>
+            <div className='flex items-center p-4'>
                 <AiOutlineClose onClick={() => removeFromCart(selection._id)} className='absolute top-2 right-2 text-2xl text-mainGreen cursor-pointer' />
                 <Image src={selection.product.image} alt={selection.product.name} width={100} height={100} />
                 <div className='ml-3'>

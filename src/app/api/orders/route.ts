@@ -18,16 +18,18 @@ export async function GET(req: NextRequest) {
     const orders = await Order.find({}).populate({
       path: 'selections',
       populate: {
-        path: 'product'
-      }
+        path: 'product',
+        strictPopulate: false
+      },
+      strictPopulate: false
     });
 
     if (orders.length > 0)
     return NextResponse.json({ orders }, { status: 200 });
 
-    return NextResponse.json({ message: 'Orders not found.' }, { status: 404 });
+    return NextResponse.json({}, { status: 404, statusText: 'Orders not found.' });
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to get orders.' }, { status: 500 });
+    return NextResponse.json({}, { status: 500, statusText: 'Failed to get orders.' });
   }
 }
 
@@ -36,7 +38,7 @@ export async function POST(req: NextRequest) {
     const token = await getToken({ req })
 
     if(!token)
-    return NextResponse.json({ message: 'You must be logged in to create an order.' }, { status: 401 });
+    return NextResponse.json({}, { status: 401, statusText: 'You must be logged in to create an order.' });
 
     await connectToDatabase();
 
@@ -47,9 +49,9 @@ export async function POST(req: NextRequest) {
       await Product.findByIdAndUpdate(selection.product, { $inc: { numberOfSales: 1 } });
     });
 
-    await Order.create({ selections, ...body });
-    return NextResponse.json({ message: 'Order created successfully.' }, { status: 201 });
+    const order = await Order.create({ selections, ...body });
+    return NextResponse.json({ order }, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to create orders.' }, { status: 500 });
+    return NextResponse.json({}, { status: 500, statusText: 'Failed to create orders.' });
   }
 }

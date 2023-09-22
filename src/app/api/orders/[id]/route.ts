@@ -10,17 +10,19 @@ export async function GET(req: NextRequest, { params }: ParamsType) {
 
     const order = await Order.findById(params.id).populate({
       path: 'selections',
+      strictPopulate: false,
       populate: {
-        path: 'product'
+        path: 'product',
+        strictPopulate: false
       }
     });
 
     if (order)
     return NextResponse.json({ order }, { status: 200 });
 
-    return NextResponse.json({ message: 'Order not found.' }, { status: 404 });
+    return NextResponse.json({}, { status: 404, statusText: 'Order not found.' });
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to get order.' }, { status: 500 });
+    return NextResponse.json({}, { status: 500, statusText: 'Failed to get order.' });
   }
 }
 
@@ -29,7 +31,7 @@ export async function PUT(req: NextRequest, { params }: ParamsType) {
     const token = await getToken({ req })
 
     if(!token)
-    return NextResponse.json({ message: 'You must be logged in to update an order.' }, { status: 401 });
+    return NextResponse.json({}, { status: 401, statusText: 'You must be logged in to update an order.' });
 
     await connectToDatabase();
 
@@ -37,11 +39,11 @@ export async function PUT(req: NextRequest, { params }: ParamsType) {
     const order = await Order.findByIdAndUpdate(params.id, body);
 
     if (order)
-    return NextResponse.json({ message: 'Order updated successfully' }, { status: 200 });
+    return NextResponse.json({}, { status: 200, statusText: 'Order updated successfully' });
 
-    return NextResponse.json({ message: 'Order not found.' }, { status: 404 });
+    return NextResponse.json({}, { status: 404, statusText: 'Order not found.' });
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to update order.' }, { status: 500 });
+    return NextResponse.json({}, { status: 500, statusText: 'Failed to update order.' });
   }
 }
 
@@ -50,17 +52,17 @@ export async function DELETE(req: NextRequest, { params }: ParamsType) {
     const token = await getToken({ req })
 
     if(!token)
-    return NextResponse.json({ message: 'You must be logged in to delete an order.' }, { status: 401 });
+    return NextResponse.json({}, { status: 401, statusText: 'You must be logged in to delete an order.' });
 
     await connectToDatabase();
 
     const order = await Order.findByIdAndDelete(params.id);
 
     if (order)
-    return NextResponse.json({ message: 'Order deleted successfully.' }, { status: 200 });
+    return NextResponse.json({}, { status: 200, statusText: 'Order deleted successfully.' });
 
-    return NextResponse.json({ message: 'Order not found' }, { status: 404 });
+    return NextResponse.json({}, { status: 404, statusText: 'Order not found' });
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to delete order.' }, { status: 500 });
+    return NextResponse.json({}, { status: 500, statusText: 'Failed to delete order.' });
   }
 }

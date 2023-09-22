@@ -1,5 +1,8 @@
 'use client'
 import Link from "next/link";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -9,15 +12,70 @@ import { useCartContext } from "@/contexts/CartContext";
 import { useModalContext } from "@/contexts/ModalContext";
 
 const Cart = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const { setIsAuthOpen } = useModalContext();
-  const { cart, totalCost } = useCartContext();
+  const { cart, totalCost, setCart } = useCartContext();
 
-  const handleCheckout = () => {
-    if(!session?.user)
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch(`/api/users/${session?.user._id}`);
+      const data = await res.json();
+      setUser(data.user);
+    }
+
+    session && fetchUser(); 
+  }, [session]);
+
+  const handleCheckout = async () => {
+    if(!session?.user || !user)
     return setIsAuthOpen(true);
 
-    // post selection and go to payment if payment success create an order
+    if(user?.address === '' || user?.address === null){
+      toast.error('You must have address information.', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      });
+
+      return router.push('/account')
+    }
+
+    var selectionIds:string[] = [];
+
+    for(let i = 0; i < cart.length; i++){
+      await fetch(`/api/selections`, {
+        method: 'POST',
+        body: JSON.stringify({
+          product: cart[i].product,
+          user: session.user._id,
+          size: cart[i].size,
+          ingredients: cart[i].ingredients
+        })
+      })
+      .then((res) => res.json())
+      .then((res) => selectionIds.push(res.selection._id));
+    }
+
+    const response = await fetch(`/api/orders`, {
+      method: 'POST',
+      body: JSON.stringify({
+        selections: selectionIds,
+        buyer: session.user._id,
+        status: false,
+        price: totalCost
+      })
+    });
+
+    const data = await response.json();
+    return router.push(`/payment/${data?.order?._id}`);
   };
 
   if(cart?.length > 0)
@@ -69,8 +127,8 @@ const Cart = () => {
   )
 
   return (
-    <div className="text-black text-center py-10 px-4">
-      <AiOutlineShoppingCart className='text-[200px] md:text-[300px] mx-auto' />
+    <div className="text-black text-center py-10 px-4 bg-lightRed">
+      <AiOutlineShoppingCart className='text-[200px] md:text-[300px] mx-auto mb-10' />
       <h1 className="text-3xl md:text-5xl font-semibold">Your cart is empty. </h1>
       <p className="text-xl md:text-3xl font-medium">Discover our products and fill your cart.</p>
       <Link href='/menu/top'>

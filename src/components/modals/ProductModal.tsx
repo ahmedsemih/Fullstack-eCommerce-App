@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { toast } from 'react-toastify';
+import { useSession } from "next-auth/react";
 import { AiFillExclamationCircle } from "react-icons/ai";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
@@ -12,6 +13,7 @@ import { useCartContext } from "@/contexts/CartContext";
 import { useModalContext } from "@/contexts/ModalContext";
 
 const ProductModal = ({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
+    const { data: session } = useSession();
     const { addToCart } = useCartContext();
     const { productId } = useModalContext();
     const modalRef = useRef<HTMLDivElement>(null);
@@ -21,6 +23,14 @@ const ProductModal = ({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolea
     const [selectedSize, setSelectedSize] = useState<string>('small');
 
     useEffect(() => {
+        const fetchSelection = async () => {
+            const res = await fetch(`/api/selections?productId=${productId}&userId=${session?.user._id}`);
+            const data = await res.json();
+
+            setSelectedSize(data.selection.size);
+            setIngredients(data.selection.ingredients);
+        };
+
         const fetchProducts = async () => {
             const res = await fetch(`/api/products/${productId}`)
             const data = await res.json();
@@ -29,7 +39,7 @@ const ProductModal = ({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolea
             setIngredients(data?.product?.ingredients || []);
         };
 
-        fetchProducts();
+        fetchProducts().then(() => session?.user && fetchSelection());
     }, [productId]);
 
     useEffect(() => {
@@ -169,8 +179,6 @@ const ProductModal = ({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolea
             ): (
                 <Loader />
             )}
-
-            
         </div>
     )
 }

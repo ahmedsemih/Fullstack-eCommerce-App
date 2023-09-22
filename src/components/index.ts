@@ -10,3 +10,4 @@ export {default as ClientButton} from './buttons/ClientButton';
 export {default as Countdown} from './Countdown';
 export {default as ModifyButton} from './buttons/ModifyButton';
 export {default as CampaignButton} from './buttons/CampaignButton';
+export {default as CheckoutForm} from './CheckoutForm';

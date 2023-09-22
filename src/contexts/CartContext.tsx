@@ -1,17 +1,25 @@
 'use client'
 
 import getSizeInfo from "@/utils/getSizeInfo";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from "react";
 
 type ContextType = {
     cart: SelectionType[];
     totalCost: number;
+    setCart: Dispatch<SetStateAction<SelectionType[]>>;
     addToCart: any;
     removeFromCart: any;
     updateSelection: any;
 }
 
-export const CartContext = createContext<ContextType>({ cart: [], totalCost: 0, addToCart: () => {}, removeFromCart: () => {}, updateSelection: () => {}});
+export const CartContext = createContext<ContextType>({ 
+    cart: [], 
+    totalCost: 0, 
+    setCart: useState<SelectionType[]>, 
+    addToCart: () => {}, 
+    removeFromCart: () => {}, 
+    updateSelection: () => {}
+});
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [cart, setCart] = useState<SelectionType[]>([]);
@@ -73,6 +81,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     const values = {
         cart,
+        setCart,
         totalCost,
         addToCart,
         removeFromCart,

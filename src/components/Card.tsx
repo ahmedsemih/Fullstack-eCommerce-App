@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ClientButton from './ClientButton';
+import ClientButton from './buttons/ClientButton';
 
 type Props = {
   product: Product;
