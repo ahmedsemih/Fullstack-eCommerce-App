@@ -1,18 +1,19 @@
+import { NextRequest, NextResponse } from "next/server";
+
 import Selection from "@/models/Selection";
 import { connectToDatabase } from "@/utils/database";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params }: ParamsType) {
     try {
         await connectToDatabase();
 
-        const selections = await Selection.find({ user: params.id }).populate('product');
+        const selections = await Selection.find({ user: params.id }).populate({ path:'product', strictPopulate: false });
 
         if(selections.length > 0)
         return NextResponse.json({selections}, { status: 200 });
 
-        return NextResponse.json({ message: 'Selections not found.' }, { status: 404 });
+        return NextResponse.json({}, { status: 404, statusText: 'Selections not found.' });
     } catch (error) {
-        return NextResponse.json({ message: 'Failed to get selection.' }, { status: 500 });
+        return NextResponse.json({}, { status: 500, statusText: 'Failed to get selection.' });
     }
 }

@@ -23,6 +23,7 @@ const OrderSchema = new Schema({
         type: Date,
         default: Date.now()
     },
+    intentId: String,
     price: Number,
     deliveryDate: Date
 }, { versionKey: false });
