@@ -5,23 +5,32 @@ import Order from '@/models/Order';
 import Product from '@/models/Product';
 import Selection from '@/models/Selection';
 import { connectToDatabase } from '@/utils/database';
+import User from '@/models/User';
 
 export async function GET(req: NextRequest) {
   try {
-    const token = await getToken({ req })
-
-    if(!token)
-    return NextResponse.json({ message: 'You must be an admin to get all orders.' }, { status: 401 });
-
     await connectToDatabase();
 
-    const orders = await Order.find({}).populate({
+    const today = new Date();
+    const yesterday = today.setHours(today.getHours() - 3);
+
+    const orders = await Order.find({ 
+      $or:[
+        { deliverDate: { $gt: yesterday }},
+        { progress: { $lt: 2 } }
+      ]
+    })
+    .populate({
       path: 'selections',
+      model: Selection,
       populate: {
         path: 'product',
-        strictPopulate: false
+        model: Product
       },
-      strictPopulate: false
+    })
+    .populate({
+      path: 'buyer',
+      model: User
     });
 
     if (orders.length > 0)
