@@ -38,7 +38,7 @@ const AdminOrderCard = ({ order }: { order: Order }) => {
   }
 
   return (
-    <div className="border-2 border-mainGreen text-mainGreen rounded-lg p-4 my-4" >
+    <div className="border-2 border-mainGreen text-black rounded-lg p-4 my-4" >
       <div className="text-xl flex md:flex-row flex-col flex-wrap justify-between px-2">
         <div className="flex flex-col">
           <p>Order No: <i className="font-semibold">{order._id}</i></p>

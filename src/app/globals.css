@@ -38,3 +38,15 @@ a{
   background-color: rgba(0, 166, 82, 0.5);
   pointer-events: none;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b6aaaa;
+}
+
+::-webkit-scrollbar-track {
+  background: #F0F0F0;
+}

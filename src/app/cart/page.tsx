@@ -33,7 +33,7 @@ const Cart = () => {
     if(!session?.user || !user)
     return setIsAuthOpen(true);
 
-    if(user?.address === '' || user?.address === null){
+    if(!user?.address){
       toast.error('You must have address information.', {
         position: "bottom-center",
         autoClose: 3000,
@@ -98,9 +98,9 @@ const Cart = () => {
                   {
                     selection?.size
                       ?
-                      <b>${selection?.product?.price * getSizeInfo(selection?.size).multiplier * Number((100 - selection?.product?.discountRate!) / 100)}</b>
+                      <b>${(selection?.product?.price * getSizeInfo(selection?.size).multiplier * Number((100 - selection?.product?.discountRate!) / 100)).toFixed(2)}</b>
                       :
-                      <b>${selection?.product?.price * Number((100 - selection?.product?.discountRate!) / 100)}</b>
+                      <b>${(selection?.product?.price * Number((100 - selection?.product?.discountRate!) / 100)).toFixed(2)}</b>
                   }
                 </div>
               )

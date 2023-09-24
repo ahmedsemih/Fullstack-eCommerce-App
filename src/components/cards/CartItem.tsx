@@ -60,9 +60,10 @@ const CartItem = ({ selection }: { selection: SelectionType }) => {
                     ${
                         selection.size
                             ?
-                            (selection.product.price * getSizeInfo(selection.size).multiplier) * Number((100 - selection.product.discountRate!) / 100)
+                            Number((selection.product.price * getSizeInfo(selection.size).multiplier) * Number((100 - selection.product.discountRate!) / 100)).toFixed(2)
                             :
-                            (selection.product.price * Number((100 - selection.product.discountRate!) / 100))}
+                            (selection.product.price * Number((100 - selection.product.discountRate!) / 100)).toFixed(2)
+                    }
                 </b>
                 {
                     selection.size
