@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-import CartItem from "@/components/CartItem";
+import { CartItem } from "@/components";
 import getSizeInfo from "@/utils/getSizeInfo";
 import { useCartContext } from "@/contexts/CartContext";
 import { useModalContext } from "@/contexts/ModalContext";
@@ -15,7 +15,7 @@ const Cart = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const { setIsAuthOpen } = useModalContext();
-  const { cart, totalCost, setCart } = useCartContext();
+  const { cart, totalCost } = useCartContext();
 
   const [user, setUser] = useState<User | null>(null);
 

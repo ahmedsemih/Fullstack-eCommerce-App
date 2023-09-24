@@ -7,8 +7,8 @@ async function fetchProduct() {
     const data = await res.json();
     const products = data.campaign?.products;
 
-    if(products?.length > 0)
-    return products[-1];
+    if (products?.length > 0)
+        return products[-1];
 
     const response = await fetch(`${process.env.BASE_URL}/api/products/category/top`, { cache: 'no-cache' });
     const body = await response.json();
@@ -25,8 +25,17 @@ const Showcase = async () => {
                 <p className="text-2xl  text-center lg:text-start">{product?.description}</p>
                 <div className="flex md:flex-row flex-col items-center lg:justify-start justify-center gap-10 ">
                     <div className='my-8 flex gap-4 justify-center'>
-                        <span className='opacity-40 text-5xl font-semibold sm:text-7xl lg:text-5xl xl:text-7xl line-through' >${product?.price}</span>
-                        <span className='font-semibold text-5xl sm:text-7xl lg:text-5xl xl:text-7xl' >${(product?.price * Number((100 - product?.discountRate!) / 100))}</span>
+                        {
+                            product?.discountRate > 0 ? (
+                                <>
+                                    <span className='opacity-40 text-5xl font-semibold sm:text-7xl lg:text-5xl xl:text-7xl line-through' >${product?.price}</span>
+                                    <span className='font-semibold text-5xl sm:text-7xl lg:text-5xl xl:text-7xl' >${(product?.price * Number((100 - product?.discountRate!) / 100))}</span>
+                                </>
+                            ) : (
+                                <span className='font-semibold text-5xl sm:text-7xl lg:text-5xl xl:text-7xl' >${product?.price}</span>
+                            )
+                        }
+
                     </div>
                     <ClientButton
                         selection={{
@@ -34,7 +43,7 @@ const Showcase = async () => {
                             product,
                             user: ''
                         }}
-                        variant="outlined" 
+                        variant="outlined"
                     >
                         Add to Cart
                     </ClientButton>
