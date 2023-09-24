@@ -17,7 +17,11 @@ const Card = ({ product, border, category }: Props) => {
     >
       <div className='px-8 py-4 xl:py-8'>
         <Image
-          className={`mx-auto w-full ${category === 'pizzas' && 'group-hover:rotate-45 transition-all duration-300'} `}
+          className={`
+            mx-auto w-full 
+            ${border ? 'max-h-[350px]' : 'max-h-none'} 
+            ${category === 'pizzas' && 'group-hover:rotate-45 transition-all duration-300'} 
+          `}
           alt={product.name}
           width={500}
           height={500}
