@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import Campaign from '@/models/Campaign';
 import { connectToDatabase } from '@/utils/database';
+import Product from '@/models/Product';
 
 export async function GET(req: NextRequest, { params }: ParamsType) {
     try {
@@ -50,6 +51,11 @@ export async function DELETE(req: NextRequest, { params }: ParamsType) {
         await connectToDatabase();
 
         const campaign = await Campaign.findByIdAndDelete(params.id);
+
+        const oldDiscountedProducts = await Product.find({ discountRate: { $gt: 0 } });
+        oldDiscountedProducts.forEach(async (product: Product) => {
+          await Product.findByIdAndUpdate(product._id, { discountRate: 0 });
+        });
 
         if(campaign)
         return NextResponse.json({ message: 'Campaign deleted successfully.'}, { status: 200 });

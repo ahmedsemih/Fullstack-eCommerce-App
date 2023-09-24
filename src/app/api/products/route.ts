@@ -8,7 +8,7 @@ export async function GET() {
     try {
         await connectToDatabase();
 
-        const products = await Product.find({}).populate({ path: 'Category', strictPopulate: false });
+        const products = await Product.find({}).populate({ path: 'category', strictPopulate: false });
 
         if(products.length > 0) 
         return NextResponse.json({ products }, { status: 200 });
