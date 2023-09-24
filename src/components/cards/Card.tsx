@@ -38,7 +38,7 @@ const Card = ({ product, border, category }: Props) => {
                 ${product.price}
               </span>
               <span className='text-mainRed font-semibold text-4xl' >
-                ${(product.price * Number((100 - product.discountRate!) / 100))}
+                ${(product.price * Number((100 - product.discountRate!) / 100)).toFixed(2)}
               </span>
             </div>
           ) : (

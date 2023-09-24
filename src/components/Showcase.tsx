@@ -8,7 +8,7 @@ async function fetchProduct() {
     const products = data.campaign?.products;
 
     if (products?.length > 0)
-        return products[-1];
+        return products[products.length - 1];
 
     const response = await fetch(`${process.env.BASE_URL}/api/products/category/top`, { cache: 'no-cache' });
     const body = await response.json();
@@ -29,10 +29,10 @@ const Showcase = async () => {
                             product?.discountRate > 0 ? (
                                 <>
                                     <span className='opacity-40 text-5xl font-semibold sm:text-7xl lg:text-5xl xl:text-7xl line-through' >${product?.price}</span>
-                                    <span className='font-semibold text-5xl sm:text-7xl lg:text-5xl xl:text-7xl' >${(product?.price * Number((100 - product?.discountRate!) / 100))}</span>
+                                    <span className='font-semibold text-5xl sm:text-7xl lg:text-5xl xl:text-7xl' >${(product?.price * Number((100 - product?.discountRate!) / 100)).toFixed(2)}</span>
                                 </>
                             ) : (
-                                <span className='font-semibold text-5xl sm:text-7xl lg:text-5xl xl:text-7xl' >${product?.price}</span>
+                                <span className='font-semibold text-5xl sm:text-7xl lg:text-5xl xl:text-7xl' >${product?.price.toFixed(2)}</span>
                             )
                         }
 
