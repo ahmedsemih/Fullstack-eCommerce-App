@@ -1,6 +1,6 @@
 export {default as Layout} from './Layout';
 export {default as Providers} from './Providers';
-export {default as Card} from './Card';
+export {default as Card} from './cards/Card';
 export {default as HeroSection} from './HeroSection';
 export {default as Carousel} from './Carousel';
 export {default as Showcase} from './Showcase';
@@ -11,4 +11,6 @@ export {default as Countdown} from './Countdown';
 export {default as ModifyButton} from './buttons/ModifyButton';
 export {default as CampaignButton} from './buttons/CampaignButton';
 export {default as CheckoutForm} from './CheckoutForm';
-export {default as OrderCard} from './OrderCard';
+export {default as OrderCard} from './cards/OrderCard';
+export {default as CartItem} from './cards/CartItem';
+export {default as AdminModal} from './modals/AdminModal';

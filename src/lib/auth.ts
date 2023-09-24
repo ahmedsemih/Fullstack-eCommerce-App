@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: any): Promise<any> {
                 try {
-                    connectToDatabase();
+                    await connectToDatabase();
     
                     const user = await User.findOne({email: credentials.email});
                     if(!user)
@@ -49,8 +49,8 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async signIn({account, profile}) {
+            await connectToDatabase();
             if(account?.provider === 'google'){
-              connectToDatabase();
       
               const user = await User.findOne({ email: profile?.email });
               if(user) return true;
@@ -62,15 +62,23 @@ export const authOptions: NextAuthOptions = {
                 provider: 'google'
               });
             }
-      
+
             return true;
           },
           async jwt({token, user}){
-            if(user) token.isAdmin = user.isAdmin;
+            if(user){
+                token.isAdmin = user.isAdmin;
+                token._id = user._id
+            } 
+                
             return token;
           },
           async session({session, token}){
-            if(session?.user) session.user.isAdmin = token.isAdmin;
+            if(session?.user){
+                session.user.isAdmin = token.isAdmin;
+                session.user._id = token._id;
+            }
+            
             return session;
           }
     },

@@ -6,14 +6,20 @@ import { connectToDatabase } from "@/utils/database";
 
 export async function GET(req: NextRequest) {
     try {
-        const token = await getToken({ req })
+        const token = await getToken({ req });
+        const url = new URL(req.url);
+        const admins = url.searchParams.get("admins")
 
-        if(!token?.isAdmin)
+        if(token?.isAdmin)
         return NextResponse.json({}, { status: 401, statusText: 'You must be an admin to get all users.' });
 
         await connectToDatabase();
 
-        const users = await User.find({});
+        let users = [];
+        if(admins)
+        users = await User.find({ isAdmin: true })
+        else
+        users = await User.find({ $or: [{provider: 'company'}, { isAdmin: true }]});
 
         if(users.length > 0)
         return NextResponse.json({ users }, { status: 200 });
