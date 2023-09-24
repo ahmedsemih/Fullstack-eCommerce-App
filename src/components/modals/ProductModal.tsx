@@ -28,7 +28,7 @@ const ProductModal = ({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolea
             const data = await res.json();
 
             setSelectedSize(data.selection?.size || 'small');
-            setIngredients(data.selection?.ingredients || []);
+            data.selection?.ingredients?.length > 0 && setIngredients(data.selection?.ingredients);
         };
 
         const fetchProducts = async () => {

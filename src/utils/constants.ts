@@ -43,7 +43,7 @@ export const footerLinks = {
         },
         {
             name: 'Top Sales',
-            link: '/menu/top-sales'
+            link: '/menu/top'
         },
         {
             name: 'Pizzas',
