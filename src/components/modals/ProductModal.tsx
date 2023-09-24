@@ -27,8 +27,8 @@ const ProductModal = ({ setIsOpen }: { setIsOpen: Dispatch<SetStateAction<boolea
             const res = await fetch(`/api/selections?productId=${productId}&userId=${session?.user._id}`);
             const data = await res.json();
 
-            setSelectedSize(data.selection.size);
-            setIngredients(data.selection.ingredients);
+            setSelectedSize(data.selection?.size || 'small');
+            setIngredients(data.selection?.ingredients || []);
         };
 
         const fetchProducts = async () => {

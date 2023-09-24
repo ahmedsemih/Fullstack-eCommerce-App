@@ -140,7 +140,7 @@ const ModifyProductModal = ({ productId, type, setIsOpen }: Props) => {
   const addProduct = async (e: any) => {
     e.preventDefault();
 
-    if (!properties.name || properties.price === 0 || !properties.category || !imageFile)
+    if (!properties.name || properties.price === 0 || !imageFile || !properties.category)
       return toast.error('Name, price, category and image is required.', {
         position: "bottom-center",
         autoClose: 3000,
@@ -200,7 +200,7 @@ const ModifyProductModal = ({ productId, type, setIsOpen }: Props) => {
     const ingredientArray = value.split(' ');
 
     setIngredients(ingredientArray);
-    setProperties({ ...properties, ingredients: ingredientArray })
+    setProperties({ ...properties, ingredients: e.target.value });
   }
 
   const handleImage = async (e: any) => {
@@ -216,6 +216,19 @@ const ModifyProductModal = ({ productId, type, setIsOpen }: Props) => {
 
       reader.readAsDataURL(file);
     }
+  }
+
+  const handleReset = () => {
+    setProperties({
+      name: '',
+      price: 0,
+      category: '',
+      description: '',
+      ingredients: []
+    });
+    setImage('');
+    setImageFile(null);
+    setIngredients([]);
   }
 
   return (
@@ -249,7 +262,6 @@ const ModifyProductModal = ({ productId, type, setIsOpen }: Props) => {
               type="number"
               name="price"
               value={properties?.price}
-              step={5}
               min={0}
               className="border rounded-lg w-full p-2"
               onChange={(e) => handleChange('price', Number(e.target.value))}
@@ -259,6 +271,7 @@ const ModifyProductModal = ({ productId, type, setIsOpen }: Props) => {
             Category:
             <select
               value={properties.category}
+              defaultValue={properties.category}
               className="w-full border rounded-lg p-2"
               name="category"
               onChange={(e) => handleChange('category', e.target.value)}
@@ -291,8 +304,18 @@ const ModifyProductModal = ({ productId, type, setIsOpen }: Props) => {
             ></textarea>
           </label>
           <div className="flex gap-2 font-semibold">
-            <button className="text-white bg-mainRed rounded-lg py-2 px-4 w-full">{type === 'add' ? 'Create' : 'Save'}</button>
-            <button className="text-mainRed border-2 border-mainRed py-2 px-4 rounded-lg w-full">Reset</button>
+            <button type="submit" className="text-white bg-mainRed rounded-lg py-2 px-4 w-full">{type === 'add' ? 'Create' : 'Save'}</button>
+            {
+              type === 'add' && (
+                <button 
+                  onClick={handleReset}
+                  type="reset" 
+                  className="text-mainRed border-2 border-mainRed py-2 px-4 rounded-lg w-full"
+                >
+                  Reset
+                </button>
+              )
+            }
           </div>
         </form>
         <Preview properties={properties} image={image} />
