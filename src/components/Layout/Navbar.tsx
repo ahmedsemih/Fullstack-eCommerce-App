@@ -46,9 +46,9 @@ const Navbar = () => {
                         <BsFillTelephoneFill />  {phoneNumbers.order}
                     </div>
                     {
-                        session 
+                        session?.user
                         ?
-                        <Link href={session.user.isAdmin ? '/admin/orders' : '/account'} >Account</Link> 
+                        <Link href={session.user.isAdmin ? '/admin/orders' : '/account'} >{session.user.isAdmin ? 'Admin' : 'Account'}</Link> 
                         :
                         <button onClick={() => setIsAuthOpen(true)} >Login</button>
                     }

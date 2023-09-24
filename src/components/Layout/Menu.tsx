@@ -19,7 +19,7 @@ const Menu = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className='relative'>
+        <div className='relative z-50'>
             <button 
                 className='text-5xl' 
                 onClick={() => setIsOpen(prev => !prev)} 

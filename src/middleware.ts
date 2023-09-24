@@ -6,8 +6,8 @@ export default withAuth(
         const url = request.nextUrl.clone();
         url.pathname = '/';
 
-        if(request.nextUrl.pathname.startsWith("/admin") && !request.nextauth.token?.isAdmin)
-        return NextResponse.redirect(url);        
+        if(request.nextUrl.pathname.includes("/admin") && !request.nextauth.token?.isAdmin)
+        return NextResponse.redirect(url);      
     },
     {
         callbacks: {
@@ -16,4 +16,4 @@ export default withAuth(
     }
 )
 
-export const config = { matcher: ["/admin", '/account', '/payment', '/orders'] }
+export const config = { matcher: ["/admin", '/admin/admins','/admin/products', '/admin/campaigns', '/admin/orders', '/account', '/payment', '/account/orders'] }

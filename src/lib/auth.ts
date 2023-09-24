@@ -48,13 +48,16 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async signIn({account, profile}) {
+        async signIn({user, account, profile}) {
             await connectToDatabase();
             if(account?.provider === 'google'){
       
-              const user = await User.findOne({ email: profile?.email });
-              if(user) return true;
-      
+              const fetchedUser = await User.findOne({ email: profile?.email });
+              user._id = fetchedUser._id;
+              user.isAdmin = fetchedUser.isAdmin;
+
+              if(fetchedUser) return true;
+                
               await User.create({
                 fullName: profile?.name,
                 email: profile?.email,

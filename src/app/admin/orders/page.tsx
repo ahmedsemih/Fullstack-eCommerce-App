@@ -12,9 +12,15 @@ const Orders = async () => {
   return (
     <main>
       {
-        orders.map((order) => (
-          <AdminOrderCard order={order} />
-        ))
+        orders ? (
+          orders?.map((order) => (
+            <AdminOrderCard key={order._id} order={order} />
+          ))
+        ) : (
+          <div className="border-2 border-mainGreen rounded-lg p-4 w-full text-mainGreen text-center text-3xl mt-4">
+            There is no order.
+          </div>
+        )
       }
     </main>
   )

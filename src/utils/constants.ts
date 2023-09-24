@@ -72,11 +72,7 @@ export const adminLinks = [
     {
         name: 'Admins',
         link: '/admin/admins'
-    },
-    {
-        name: 'Statistics',
-        link: '/admin/statistics',
-    },
+    }
 ]
 
 export const userLinks = [

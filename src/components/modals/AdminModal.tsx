@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { FormSubmitHandler } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -19,6 +20,7 @@ type Values = {
 
 const AdminModal = ({ setIsOpen, userId }: Props) => {
   const router = useRouter();
+  const { data:session } = useSession();
   const modalRef = useRef<HTMLDivElement>(null);
 
   const [values, setValues] = useState<Values>({
@@ -193,6 +195,7 @@ const AdminModal = ({ setIsOpen, userId }: Props) => {
               className='border rounded-lg p-2 h-6 w-6 accent-mainGreen'
               type="checkbox"
               checked={values.isAdmin}
+              disabled={userId === session?.user._id}
             />
           </label>
           <div className='flex gap-4 font-semibold'>
