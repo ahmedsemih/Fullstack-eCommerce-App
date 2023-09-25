@@ -28,7 +28,7 @@ const Payment = ({ params }: { params: { id: string }}) => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-[600vh]">
       {clientSecret && (
         <Elements 
           options={{ 

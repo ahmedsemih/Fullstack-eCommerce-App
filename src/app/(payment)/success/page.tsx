@@ -25,7 +25,7 @@ const Success = () => {
   }, []);
 
   return (
-    <div className="text-black text-center py-10 px-4 bg-lightGreen">
+    <div className="text-black text-center py-20 px-4 bg-lightGreen">
       <TiTick className='text-[200px] md:text-[300px] mx-auto text-mainGreen' />
       <h1 className="text-3xl md:text-5xl font-semibold">Your payment is successful.</h1>
       <p className="text-xl md:text-3xl font-medium">Do not close this page, you will be redirected after a few seconds.</p>
