@@ -1,4 +1,4 @@
-https://github.com/ahmedsemih/fullstack-ecommerce-app/assets/102798814/944e10ee-0d40-4615-8223-dd37e867568c
+https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/25de7ad8-60e1-420e-9198-34d012dd00e2
 
 # Full Stack E-Commerce App
 
@@ -30,13 +30,13 @@ This is a full stack pizza restaurant ecommerce application. Customers can order
 - [Cloudinary](https://www.cloudinary.com/) - Image Storage
 
 ## :camera_flash: Screenshots
-![pizzahaven-ss-1](https://github.com/ahmedsemih/restaurant-app/assets/102798814/c6b88247-9f0e-422f-9ce0-4c88fd941dbc)
-![pizzahaven-ss-22](https://github.com/ahmedsemih/fullstack-ecommerce-app/assets/102798814/eafd4548-ecb7-4730-be2b-aadfd2497107)
-![pizzahaven-ss-333](https://github.com/ahmedsemih/fullstack-ecommerce-app/assets/102798814/b27d6018-d535-4294-8d9f-b4ef3c3d7764)
-![pizzahaven-ss-3](https://github.com/ahmedsemih/restaurant-app/assets/102798814/93e36a9a-5da6-4a57-a02a-bd8523b85a0b)
-![pizzahaven-ss-4](https://github.com/ahmedsemih/restaurant-app/assets/102798814/e8e1542f-1e57-4014-8d30-232472a0bafe)
-![pizzahaven-ss-5](https://github.com/ahmedsemih/restaurant-app/assets/102798814/67e103b2-3330-4925-9b3a-b9c40fc95134)
-![pizzahaven-ss-66](https://github.com/ahmedsemih/restaurant-app/assets/102798814/03e8ca17-f541-45c5-9ea2-299637c705c9)
+![pizzahaven-ss-1](https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/37a067cf-1a7f-4e65-9a80-063dfda21b86)
+![pizzahaven-ss-22](https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/136fbdfa-b9eb-4253-9eb6-f617b21f1916)
+![pizzahaven-ss-333](https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/de29b151-bb4e-4595-b324-2c81bf9a8806)
+![pizzahaven-ss-4](https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/6c62dcf4-d164-42f0-ab1d-aecee16ede39)
+![pizzahaven-ss-3](https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/985783e5-f2b1-439f-9553-ebf1e647d90f)
+![pizzahaven-ss-5](https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/867962ca-950b-46a0-8b61-9126f100279e)
+![pizzahaven-ss-66](https://github.com/ahmedsemih/Fullstack-eCommerce-App/assets/102798814/1e8e642f-257c-4fc3-824d-b725e3e2a62d)
 
 ## :triangular_flag_on_post: Getting Started
 
@@ -44,7 +44,7 @@ First of all you need to clone the repository and install the dependencies
 
 ```shell
 
-git clone https://github.com/ahmedsemih/fullstack-ecommerce-app.git
+git clone https://github.com/ahmedsemih/Fullstack-eCommerce-App.git
 
 npm install
 
